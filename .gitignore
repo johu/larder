@@ -1,0 +1,41 @@
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.coverprofile
+coverage.*
+/bin/
+/dist/
+vendor/
+go.work
+go.work.sum
+
+# Editors
+.idea/
+*.iml
+.vscode/
+*.code-workspace
+.zed/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+Session.vim
+.netrwhist
+.nvimlog
+\#*\#
+.\#*
+
+# OS
+.DS_Store
+Thumbs.db
+.directory
+
+# Env
+.env
+.env.*
