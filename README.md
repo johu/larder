@@ -25,6 +25,44 @@ are needed.
 |----------|---------|----------------------|
 | `PORT`   | `8080`  | TCP port to listen on |
 
+## Docker
+
+The service ships as a multi-stage image (Go build stage, alpine runtime)
+and runs as the unprivileged user `larder` (uid 10001). Compose does not
+publish a port; the container joins an existing external network so the
+reverse proxy can reach it.
+
+First start:
+
+```sh
+cp .env.example .env                    # adjust values
+mkdir -p data && sudo chown 10001:10001 data
+docker network create proxy             # only if it does not exist yet
+docker compose up -d --build
+docker compose ps                       # wait for "healthy"
+```
+
+Compose variables (`.env`):
+
+| Variable         | Default   | Description                          |
+|------------------|-----------|--------------------------------------|
+| `LARDER_VERSION` | `latest`  | Image tag                            |
+| `LARDER_PORT`    | `8080`    | Port inside the container            |
+| `LARDER_DATA`    | `./data`  | Host directory mounted at `/data`    |
+| `TZ`             | `UTC`     | Container time zone                  |
+| `PROXY_NETWORK`  | `proxy`   | Name of the external network         |
+
+Reverse proxy (caddy) block, on the same network:
+
+```
+larder.example.lan {
+	reverse_proxy larder:8080
+}
+```
+
+Backup: copy `data/larder.db`. Stop the container first (or use
+`sqlite3 data/larder.db ".backup out.db"`) so the copy is consistent.
+
 ## API
 
 | Method | Path       | Description                                 |
