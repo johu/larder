@@ -65,6 +65,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
         run: |
+          # The release title already shows the version, so drop the
+          # "## [version] - date" heading from the generated notes.
+          sed -i '0,/^## /{/^## /d}' RELEASE_NOTES.md
           flags=()
           if [[ "$TAG" == *-* ]]; then flags+=(--prerelease); fi
           gh release create "$TAG" \
