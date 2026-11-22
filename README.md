@@ -64,17 +64,34 @@ Compose variables (`.env`):
 ### Releasing
 
 Images are built for `linux/arm64` by the `release` GitHub Actions
-workflow and published to `ghcr.io/johu/larder`. Pushing a version tag
-(without a `v` prefix) triggers it, from an up-to-date `main`:
+workflow and published to `ghcr.io/johu/larder`. The workflow also
+creates a GitHub release whose notes are generated from the
+Conventional Commits since the previous tag. The changelog is generated
+with [git-cliff](https://git-cliff.org) (configuration in `cliff.toml`).
+
+Pushing a version tag (without a `v` prefix) triggers it, from an
+up-to-date `main`. For a stable release, first update `CHANGELOG.md`:
 
 ```sh
 git switch main && git pull
+git cliff --tag 0.1.0 -o CHANGELOG.md   # needs git-cliff installed
+git add CHANGELOG.md
+git commit -m "chore(release): prepare 0.1.0"
+git push origin main
 git tag 0.1.0
 git push origin 0.1.0
 ```
 
-This publishes the tags `0.1.0` and `0.1`. `latest` is only moved for
-stable versions, not for pre-releases such as `0.2.0-rc1`.
+This publishes the image tags `0.1.0` and `0.1`. `latest` is only moved
+for stable versions, not for pre-releases such as `0.2.0-rc1`.
+Pre-releases are marked as such on GitHub and do not need a changelog
+commit.
+
+Preview the notes for the next release without writing any file:
+
+```sh
+git cliff --unreleased --tag 0.1.0
+```
 
 New packages are private by default. Either make the package public
 under the package settings on GitHub, or log in on the host with a
