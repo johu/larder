@@ -9,6 +9,7 @@
 *.coverprofile
 coverage.*
 /bin/
+/data/
 /dist/
 vendor/
 go.work
@@ -39,3 +40,4 @@ Thumbs.db
 # Env
 .env
 .env.*
+!.env.example
