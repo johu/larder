@@ -3,7 +3,7 @@ name: larder
 services:
   larder:
     container_name: larder
-    image: larder:${LARDER_VERSION:-latest}
+    image: ${LARDER_IMAGE:-larder}:${LARDER_VERSION:-latest}
     build: .
     restart: always
     environment:
