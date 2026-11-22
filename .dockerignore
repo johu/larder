@@ -1,0 +1,10 @@
+.git
+.agents
+.claude
+.env
+data
+**/*.db
+**/*.db-*
+*.md
+Dockerfile
+docker-compose.yml
