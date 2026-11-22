@@ -1,0 +1,29 @@
+name: larder
+
+services:
+  larder:
+    container_name: larder
+    image: larder:${LARDER_VERSION:-latest}
+    build: .
+    restart: always
+    environment:
+      PORT: ${LARDER_PORT:-8080}
+      LARDER_DB_PATH: /data/larder.db
+      TZ: ${TZ:-UTC}
+    networks:
+      - proxy
+    volumes:
+      - ${LARDER_DATA:-./data}:/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    mem_limit: 128m
+
+networks:
+  proxy:
+    external: true
+    name: ${PROXY_NETWORK:-proxy}
