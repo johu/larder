@@ -145,7 +145,17 @@ cmd/larder/main.go   entrypoint: reads config, registers routes, serves
 
 ## Development
 
-Run the service locally:
+Dev tools (Go, git-cliff) are managed with [mise](https://mise.jdx.dev),
+so nothing needs to be installed on the host besides mise itself:
+
+```sh
+mise trust && mise install   # once; installs the versions in mise.toml
+mise run check               # gofmt + go vet + go test
+mise run run                 # start the service
+mise run build-arm64         # cross-build check for the Pi
+```
+
+Or use the toolchain directly. Run the service locally:
 
 ```sh
 go run ./cmd/larder

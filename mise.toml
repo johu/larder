@@ -1,0 +1,35 @@
+# Dev tool versions and common tasks. Run `mise install` once, then
+# `mise run <task>` (or `mise tasks` to list them).
+# Keep the Go version in sync with go.mod and the Dockerfile.
+
+[tools]
+go = "1.27.4"
+git-cliff = "latest"
+
+[env]
+CGO_ENABLED = "0"
+
+[tasks.run]
+description = "Run the service locally"
+run = "go run ./cmd/larder"
+
+[tasks.fmt]
+description = "Check formatting (prints nothing when clean)"
+run = "test -z \"$(gofmt -l .)\" || { gofmt -l .; exit 1; }"
+
+[tasks.vet]
+description = "Run go vet"
+run = "go vet ./..."
+
+[tasks.test]
+description = "Run tests"
+run = "go test ./..."
+
+[tasks.check]
+description = "fmt + vet + test"
+depends = ["fmt", "vet", "test"]
+
+[tasks.build-arm64]
+description = "Cross-build check for the Raspberry Pi target"
+env = { GOOS = "linux", GOARCH = "arm64" }
+run = "go build -o /dev/null ./cmd/larder"
