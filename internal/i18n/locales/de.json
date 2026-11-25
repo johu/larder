@@ -1,0 +1,5 @@
+{
+  "error.internal": "Es ist ein interner Fehler aufgetreten.",
+  "error.not_found": "Die angeforderte Ressource wurde nicht gefunden.",
+  "error.unit_not_found": "Die angeforderte Einheit wurde nicht gefunden."
+}
