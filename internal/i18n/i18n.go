@@ -1,5 +1,5 @@
 // Package i18n resolves the language of a request and looks up localized
-// messages. See PLAN.md, section "Internationalisation".
+// messages.
 package i18n
 
 import (
