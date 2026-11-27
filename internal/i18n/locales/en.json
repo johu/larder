@@ -1,5 +1,7 @@
 {
   "error.internal": "An internal error occurred.",
+  "error.invalid_dimension": "The dimension must be one of: mass, volume, count, approx.",
+  "error.method_not_allowed": "This method is not allowed for this resource.",
   "error.not_found": "The requested resource was not found.",
   "error.unit_not_found": "The requested unit was not found."
 }
