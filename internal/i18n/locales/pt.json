@@ -1,5 +1,7 @@
 {
   "error.internal": "Ocorreu um erro interno.",
+  "error.invalid_dimension": "A dimensão deve ser um dos seguintes valores: mass, volume, count, approx.",
+  "error.method_not_allowed": "Este método não é permitido para este recurso.",
   "error.not_found": "O recurso pedido não foi encontrado.",
   "error.unit_not_found": "A unidade pedida não foi encontrada."
 }
